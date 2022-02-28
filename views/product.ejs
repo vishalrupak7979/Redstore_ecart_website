@@ -1,0 +1,281 @@
+<html>
+<head>
+
+<title>All products-Ecommerce web page</title>
+<link rel="stylesheet" href="style.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,600;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+
+
+
+<div class="container">
+<div class="navbar">
+<div class="logo">
+<img src="images/logo.png" width="125px">
+</div>
+<nav>
+<ul id="ms">
+<li><a href="/">HOME</a></li>
+<li><a href="/products">PRODUCT</a></li>
+<li><a href="">ABOUT</a></li>
+<li><a href="">CONTACT</a></li>
+<li><a href="">ACCOUNT</a></li>
+</ul>
+</nav>
+<div class="cart">
+<a href="/cart"> <img src="images/cart.png" width="30px" height="30px"  onclick="window.location.href='/cart'"></a><span>0</span>
+</div>
+
+  <img src="images/menu.png" class="menu-icon" onclick="menutoggle()">
+</div>
+
+</div>
+
+
+
+<div class="small-categories">
+
+<div class="row row2">
+<h2>All Products</h2>
+<select>
+<option>Default shorting</option>
+<option>short by price</option>
+<option>short by popularity</option>
+<option>short by rating</option>
+<option>short by sale</option>
+</select>
+</div>
+
+
+
+<div class="row">
+<div class="col4">
+<img src="images/product-1.jpg"  onclick="window.location.href='/productdetails'">
+<h4>Red Printed T-shirt</h4>
+<div class="rating"> 
+<i class="fas fa-star"></i>
+<i class="fas fa-star"></i>
+<i class="fas fa-star"></i>
+<i class="fas fa-star"></i>
+<i class="far fa-star"></i>
+</div>
+
+<p>$50.90</p>
+<a class="btn add-cart" >Add to Cart</a>
+</div>
+<div class="col4">
+<img src="images/product-2.jpg">
+<h4>PUMA show</h4>
+<div class="rating"> 
+<i class="fas fa-star"></i>
+<i class="fas fa-star"></i>
+<i class="fas fa-star"></i>
+<i class="fas fa-star"></i>
+<i class="fas fa-star-half-alt"></i>
+</div>
+
+<p>$490.90</p>
+<a class="btn add-cart">Add to Cart</a>
+</div>
+<div class="col4">
+<img src="images/product-3.jpg">
+<h4>pant</h4>
+<div class="rating"> 
+<i class="fas fa-star"></i>
+<i class="fas fa-star"></i>
+<i class="fas fa-star"></i>
+<i class="fas fa-star"></i>
+<i class="fas fa-star-half-alt"></i>
+</div>
+
+<p>$300.90</p>
+<a class="btn add-cart">Add to Cart</a>
+</div>
+
+</div>
+
+<div class="page-btn">
+<span>1</span>
+<span>2</span>
+<span>3</span>
+<span>4</span><span>&#8594;</span>
+
+</div>
+
+
+
+
+
+
+
+<div class="footer">
+    <div class="container">
+      <div class="row">
+          <div class="footer-col1">
+              <h3>Downlosd Our App</h3>
+              <p>Download app for android and ios mobile phone.</p>
+			  <div class="app-logo">
+			  <img  src="images/play-store.png">
+			  <img src="images/app-store.png"></div>
+          </div>
+             <div class="footer-col2">
+              <img src="images/logo-white.png">
+              <p>our purpose is to sustainably make a pleasure</p>
+          </div>
+             <div class="footer-col3">
+              <h3>Useful Links</h3>
+              <ul>
+                <li>Coupons  
+                </li>
+                 <li>Blog post
+                </li>
+                 <li> Return policy 
+                </li>
+                 <li>Join afiliate
+                </li>
+                 
+                
+                  
+              </ul>
+          </div>
+          <div class="footer-col4">
+              <h3>Follow us</h3>
+              <ul>
+                <li>face book  
+                </li>
+                 <li>Instagram 
+                </li>
+                 <li> Twitter 
+                </li>
+                 <li>YouTube 
+                </li>
+                 
+                
+                  
+              </ul>
+          </div>
+          
+          
+      </div>
+<hr>
+<p class="cr">Copyright 2021</p>	  
+    </div>
+  </div> 
+  <script>
+  var element = document.getElementById('ms');
+      element.style.maxHeight="0px";
+  function menutoggle(){
+  if(element.style.maxHeight=="0px")
+  {
+  element.style.maxHeight="200px";
+  }
+  else
+  {
+  element.style.maxHeight="0px";
+  }
+  }
+  </script>
+  <script>
+  let carts=document.querySelectorAll('.add-cart');
+  let products=[
+  {
+    name:'Red Tshirt',
+	tag:'printedredtshirt',
+	price:50,
+	inCart:0
+  },
+  {
+    name:'PUMA Show',
+	tag:'pumashow',
+	price:450,
+	inCart:0
+  },
+  {
+    name:'pant',
+	tag:'pant',
+	price:300,
+	inCart:0
+  },
+  ];
+  
+  for(let i=0;i<carts.length;i++){
+     carts[i].addEventListener('click',()=>{
+	 cartnum(products[i]);
+	 total(products[i]);
+	 
+	 })
+  }
+  function onLoadCartNumber(){
+  let productnum=localStorage.getItem('cartnum');
+  if(productnum){
+  document.querySelector('.cart span').textContent= productnum;
+  }
+  }
+  function cartnum(products){
+  
+  let productnum=localStorage.getItem('cartnum');
+    productnum=parseInt(productnum);
+	if( productnum){
+	localStorage.setItem('cartnum',  productnum +1);
+	document.querySelector('.cart span').textContent= productnum +1;
+	
+	}
+	else{
+	localStorage.setItem('cartnum', 1);
+	document.querySelector('.cart span').textContent=1;
+	}
+    setItems(products);
+  }
+  function setItems(products){
+ let cartitems=localStorage.getItem('products');
+ cartitems=JSON.parse(cartitems);
+ 
+ if(cartitems!=null){
+ 
+ if(cartitems[products.tag]==undefined ){
+    cartitems={
+	...cartitems,
+	[products.tag]:products
+	}
+ 
+ }
+ 
+ cartitems[products.tag].inCart+=1;
+ }else{
+ products.inCart=1;
+   cartitems={
+      [products.tag]:products
+   }
+   
+ 
+ }
+   
+   localStorage.setItem("products",JSON.stringify(cartitems));
+  }
+  
+  function total(product){
+  let totalc;
+  let cartcost=localStorage.getItem('totalc');
+  
+  
+  
+  if(cartcost!=null){
+     cartcost=parseInt(cartcost);
+	 totalc=parseInt( totalc);
+     localStorage.setItem('totalc',cartcost+product.price);
+  
+  }
+  else{
+  localStorage.setItem('totalc',product.price);
+  }
+  
+  }
+
+  onLoadCartNumber();
+  </script>
+</body>
+</html>

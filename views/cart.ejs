@@ -1,0 +1,266 @@
+<html>
+<head>
+
+<title>All products-Ecommerce web page</title>
+<link rel="stylesheet" href="style.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,600;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+
+
+
+<div class="container">
+<div class="navbar">
+<div class="logo">
+
+<img src="images/logo.png" width="125px">
+
+</div>
+<nav>
+<ul id="ms">
+<li><a href="">HOME</a></li>
+<li><a href="">PRODUCT</a></li>
+<li><a href="">ABOUT</a></li>
+<li><a href="">CONTACT</a></li>
+<li><a href="">ACCOUNT</a></li>
+</ul>
+</nav>
+<div class="cart">
+<img src="images/cart.png" width="30px" height="30px"><span>0</span>
+</div>
+  <img src="images/menu.png" class="menu-icon" onclick="menutoggle()">
+</div>
+
+</div>
+<div class="product-container">
+<div class ="product-header">
+<h5 class="product-title">PRODUCT</h5>
+
+
+
+</div>
+<div class="products">
+</div>
+</div>
+
+
+
+
+
+
+
+<div class="footer">
+    <div class="container">
+      <div class="row">
+          <div class="footer-col1">
+              <h3>Downlosd Our App</h3>
+              <p>Download app for android and ios mobile phone.</p>
+			  <div class="app-logo">
+			  <img  src="images/play-store.png">
+			  <img src="images/app-store.png"></div>
+          </div>
+             <div class="footer-col2">
+              <img src="images/logo-white.png">
+              <p>our purpose is to sustainably make a pleasure</p>
+          </div>
+             <div class="footer-col3">
+              <h3>Useful Links</h3>
+              <ul>
+                <li>Coupons  
+                </li>
+                 <li>Blog post
+                </li>
+                 <li> Return policy 
+                </li>
+                 <li>Join afiliate
+                </li>
+                 
+                
+                  
+              </ul>
+          </div>
+          <div class="footer-col4">
+              <h3>Follow us</h3>
+              <ul>
+                <li>face book  
+                </li>
+                 <li>Instagram 
+                </li>
+                 <li> Twitter 
+                </li>
+                 <li>YouTube 
+                </li>
+                 
+                
+                  
+              </ul>
+          </div>
+          
+          
+      </div>
+<hr>
+<p class="cr">Copyright 2021</p>	  
+    </div>
+  </div> 
+  <script>
+  var element = document.getElementById('ms');
+      element.style.maxHeight="0px";
+  function menutoggle(){
+  if(element.style.maxHeight=="0px")
+  {
+  element.style.maxHeight="200px";
+  }
+  else
+  {
+  element.style.maxHeight="0px";
+  }
+  }
+  </script>
+  
+  <script src="https://unpkg.com/ionicons@4.5.10-0/dist/ionicons.js"></script>
+   <script>
+  let carts=document.querySelectorAll('.add-cart');
+  let products=[
+  {
+    name:'Red Tshirt',
+	tag:'printedredtshirt',
+	price:50,
+	inCart:0
+  },
+  {
+    name:'PUMA Show',
+	tag:'pumashow',
+	price:450,
+	inCart:0
+  },
+  {
+    name:'pant',
+	tag:'pant',
+	price:300,
+	inCart:0
+  },
+  ];
+  
+  for(let i=0;i<carts.length;i++){
+     carts[i].addEventListener('click',()=>{
+	 cartnum(products[i]);
+	 total(products[i]);
+	 
+	 })
+  }
+  function onLoadCartNumber(){
+  let productnum=localStorage.getItem('cartnum');
+  if(productnum){
+  document.querySelector('.cart span').textContent= productnum;
+  }
+  }
+  function cartnum(products){
+  
+  let productnum=localStorage.getItem('cartnum');
+    productnum=parseInt(productnum);
+	if( productnum){
+	localStorage.setItem('cartnum',  productnum +1);
+	document.querySelector('.cart span').textContent= productnum +1;
+	
+	}
+	else{
+	localStorage.setItem('cartnum', 1);
+	document.querySelector('.cart span').textContent=1;
+	}
+    setItems(products);
+  }
+  function setItems(products){
+ let cartitems=localStorage.getItem('products');
+ cartitems=JSON.parse(cartitems);
+ 
+ if(cartitems!=null){
+ 
+ if(cartitems[products.tag]==undefined ){
+    cartitems={
+	...cartitems,
+	[products.tag]:products
+	}
+ 
+ }
+ 
+ cartitems[products.tag].inCart+=1;
+ }else{
+ products.inCart=1;
+   cartitems={
+      [products.tag]:products
+   }
+   
+ 
+ }
+   
+   localStorage.setItem("products",JSON.stringify(cartitems));
+  }
+  
+  function total(product){
+  let totalc;
+  let cartcost=localStorage.getItem('totalc');
+  
+  
+  
+  if(cartcost!=null){
+     cartcost=parseInt(cartcost);
+	 totalc=parseInt( totalc);
+     localStorage.setItem('totalc',cartcost+product.price);
+  
+  }
+  else{
+  localStorage.setItem('totalc',product.price);
+  }
+  
+  }
+  function displaycart(){
+    let cartitems=localStorage.getItem("products");
+	cartitems=JSON.parse(cartitems);
+	let pdc=document.querySelector('.products');
+	let cartcost=localStorage.getItem('totalc');
+	if(cartitems && pdc){
+	pdc.innerHTML='';
+	Object.values(cartitems).map(item =>{
+	pdc.innerHTML += `<div class="product">
+	<ion-icon name="close-circle"></ion-icon>
+	<img class="image" src="./image1/${item.tag}.jpg">
+	<span>${item.name}</span>
+	</div>
+	<div class="price"><h5>PRICE:</h5>$${item.price}</div>
+	<div class="quantity">
+	<h5>QUANTITY:</h5>
+	<ion-icon name="arrow-round-down"></ion-icon>
+	<span>${item.inCart}</span>
+	<ion-icon name="arrow-round-up"></ion-icon>
+	</div>
+	<div class="total">
+	<h5>TOTAL:</h5>
+	$${item.inCart*item.price},00
+	
+	</div>
+	`
+	
+	
+	
+	
+	});
+	pdc.innerHTML+=`<div class="bs">
+	<h4 class="btt">Basket total</h4>
+	<h4 class="btf">
+	$${cartcost},00;
+	</h4>
+	
+	</div>
+	`
+	}
+  }
+
+  onLoadCartNumber();
+  displaycart();
+  </script>
+  
+</body>
+</html>
